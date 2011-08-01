@@ -37,6 +37,7 @@ Guard::Rake comes with a default template that looks like this:
 guard 'rake', :task => 'doit' do
   watch(%r{^some_files/.+$})
 end
+```
 
 This will run the rake task `doit` from your `Rakefile` whenever any of
 the watched files change.
