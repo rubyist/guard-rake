@@ -1,0 +1,3 @@
+guard 'rake', :task => 'build' do
+  watch(%r{^my_file.rb})
+end
