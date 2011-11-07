@@ -4,7 +4,7 @@ require 'guard/version'
 
 Gem::Specification.new do |s|
   s.name        = 'guard-rake'
-  s.version     = Guard::Rake::VERSION
+  s.version     = Guard::RakeVersion::VERSION
   s.authors     = ['Scott Barron']
   s.email       = ['scott@elitists.net']
   s.homepage    = 'http://github.com/rubyist/guard-rake'
