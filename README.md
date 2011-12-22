@@ -39,15 +39,15 @@ guard 'rake', :task => 'doit' do
 end
 ```
 
+This will run the rake task `doit` from your `Rakefile` whenever any of
+the watched files change.
+
 ### List of available options:
 
 ``` ruby
 :task => 'doit'              # name of the task to be executed, required
 :run_on_all => false         # runs when the 'run_all' signal is received from Guard (enter is pressed), default: true
 ```
-
-This will run the rake task `doit` from your `Rakefile` whenever any of
-the watched files change and whenever the .
 
 ## Development
 
