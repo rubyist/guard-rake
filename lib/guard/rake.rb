@@ -7,8 +7,11 @@ module Guard
     include ::Rake::DSL
 
     def initialize(watchers=[], options={})
-      @task = options[:task]
       super
+      @options = {
+        run_on_all: true
+      }.update(options)
+      @task = @options[:task]
     end
 
     def start
@@ -28,7 +31,7 @@ module Guard
     end
 
     def run_all
-      run_rake_task
+      run_rake_task if @options[:run_on_all]
     end
 
     def run_on_change(paths)
