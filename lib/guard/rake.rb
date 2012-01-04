@@ -4,8 +4,6 @@ require 'rake'
 
 module Guard
   class Rake < Guard
-    include ::Rake::DSL
-
     def initialize(watchers=[], options={})
       super
       @options = {
@@ -16,7 +14,8 @@ module Guard
 
     def start
       UI.info "Starting guard-rake #{@task}"
-      load 'Rakefile'
+      ::Rake.application.init
+      ::Rake.application.load_rakefile
       true
     end
 
@@ -40,7 +39,7 @@ module Guard
 
     def run_rake_task
       UI.info "running #{@task}"
-      ::Rake::Task[@task].execute
+      ::Rake.application[@task].execute
     end
   end
 end
