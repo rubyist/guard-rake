@@ -40,7 +40,8 @@ module Guard
 
     def run_rake_task
       UI.info "running #{@task}"
-      ::Rake::Task[@task].execute
+      ::Rake::Task.tasks.each { |t| t.reenable }
+      ::Rake::Task[@task].invoke
     end
   end
 end
