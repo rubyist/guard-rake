@@ -4,7 +4,7 @@ require 'rake'
 
 module Guard
   class Rake < Guard
-    include ::Rake::DSL
+    include ::Rake::DSL if defined? ::Rake::DSL
 
     def initialize(watchers=[], options={})
       super
