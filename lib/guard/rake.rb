@@ -9,7 +9,7 @@ module Guard
     def initialize(watchers=[], options={})
       super
       @options = {
-        run_on_all: true
+        :run_on_all => true
       }.update(options)
       @task = @options[:task]
     end
