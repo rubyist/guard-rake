@@ -1,10 +1,10 @@
 # -*- encoding: utf-8 -*-
 $:.push File.expand_path("../lib", __FILE__)
-require 'guard/version'
+require 'guard/rake/version'
 
 Gem::Specification.new do |s|
   s.name        = 'guard-rake'
-  s.version     = Guard::RakeVersion::VERSION
+  s.version     = Guard::Rake::RakeVersion::VERSION
   s.authors     = ['Scott Barron']
   s.email       = ['scott@elitists.net']
   s.homepage    = 'http://github.com/rubyist/guard-rake'
