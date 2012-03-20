@@ -4,11 +4,10 @@ require 'rake'
 
 module Guard
   class Rake < Guard
-    include ::Rake::DSL
-
     def initialize(watchers=[], options={})
       super
       @options = {
+        :run_on_start => true,
         :run_on_all => true
       }.update(options)
       @task = @options[:task]
@@ -18,6 +17,7 @@ module Guard
       UI.info "Starting guard-rake #{@task}"
       ::Rake.application.init
       ::Rake.application.load_rakefile
+      run_all if @options[:run_on_start]
       true
     end
 
