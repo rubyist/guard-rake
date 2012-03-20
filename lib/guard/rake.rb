@@ -16,7 +16,8 @@ module Guard
 
     def start
       UI.info "Starting guard-rake #{@task}"
-      load 'Rakefile'
+      ::Rake.application.init
+      ::Rake.application.load_rakefile
       true
     end
 
