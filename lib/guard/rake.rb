@@ -35,9 +35,16 @@ module Guard
       run_rake_task if @options[:run_on_all]
     end
 
-    def run_on_change(paths)
-      run_rake_task
+    if ::Guard::VERSION < "1.1"
+      def run_on_change(paths)
+        run_rake_task
+      end
+    else
+      def run_on_changes(paths)
+        run_rake_task
+      end
     end
+
 
     def run_rake_task
       UI.info "running #{@task}"
