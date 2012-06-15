@@ -1,5 +1,6 @@
 require 'guard'
 require 'guard/guard'
+require 'guard/version'
 require 'rake'
 
 module Guard
