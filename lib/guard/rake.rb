@@ -18,7 +18,7 @@ module Guard
       UI.info "Starting guard-rake #{@task}"
       ::Rake.application.init
       ::Rake.application.load_rakefile
-      run_all if @options[:run_on_start]
+      run_rake_task if @options[:run_on_start]
       true
     end
 
