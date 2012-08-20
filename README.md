@@ -48,6 +48,8 @@ the watched files change.
 :task => 'doit'              # name of the task to be executed, required
 :run_on_all => false         # runs when the 'run_all' signal is received from Guard (enter is pressed), default: true
 :run_on_start => true        # runs when guard is started, default: true
+:run_each => true            # runs rake task with each modified path as the argument, default: true
+:no_args => true             # runs rake task without passing arguments to the rake task, default: true
 ```
 
 ## Development
