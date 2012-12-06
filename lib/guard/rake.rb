@@ -2,7 +2,6 @@ require 'guard'
 require 'guard/guard'
 require 'guard/version'
 require 'rake'
-require 'debugger'
 
 module Guard
   class Rake < Guard
