@@ -48,6 +48,7 @@ the watched files change.
 :task => 'doit'              # name of the task to be executed, required
 :run_on_all => false         # runs when the 'run_all' signal is received from Guard (enter is pressed), default: true
 :run_on_start => true        # runs when guard is started, default: true
+:failure_ok => false         # if the rake task aborts or fails, does not raise to guard itself.
 ```
 
 ## Development
