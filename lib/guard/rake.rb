@@ -9,7 +9,8 @@ module Guard
       super
       @options = {
         :run_on_start => true,
-        :run_on_all => true
+        :run_on_all => true,
+        :failure_ok => false,
       }.update(options)
       @task = @options[:task]
     end
@@ -46,11 +47,12 @@ module Guard
       end
     end
 
-
     def run_rake_task
       UI.info "running #{@task}"
       ::Rake::Task.tasks.each { |t| t.reenable }
       ::Rake::Task[@task].invoke
+    rescue RuntimeError => e
+      raise e unless @options[:failure_ok]
     end
   end
 end
