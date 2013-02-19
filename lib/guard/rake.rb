@@ -14,11 +14,14 @@ module Guard
       @task = @options[:task]
     end
 
+    class << self
+      attr_accessor :rakefile_loaded
+    end
+
     def start
       UI.info "Starting guard-rake #{@task}"
-      ::Rake.application.init
-      ::Rake.application.load_rakefile
-      run_rake_task if @options[:run_on_start]
+      load_rakefile unless self.class.rakefile_loaded
+      run_all if @options[:run_on_start]
       true
     end
 
@@ -46,11 +49,19 @@ module Guard
       end
     end
 
+    private
 
     def run_rake_task
       UI.info "running #{@task}"
       ::Rake::Task.tasks.each { |t| t.reenable }
       ::Rake::Task[@task].invoke
     end
+
+    def load_rakefile
+      ::Rake.application.init
+      ::Rake.application.load_rakefile
+      self.class.rakefile_loaded = true
+    end
+    
   end
 end
