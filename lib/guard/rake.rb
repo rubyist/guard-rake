@@ -46,11 +46,15 @@ module Guard
       end
     end
 
-
     def run_rake_task
       UI.info "running #{@task}"
       ::Rake::Task.tasks.each { |t| t.reenable }
       ::Rake::Task[@task].invoke
+    rescue Exception => e
+      UI.error "#{self.class.name} failed to run rake task <#{@task}>, exception was:\n\t#{e.class}: #{e.message}"
+      UI.debug "\n#{e.backtrace.join("\n")}"
+
+      throw :task_has_failed
     end
   end
 end
