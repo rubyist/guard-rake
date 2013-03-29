@@ -5,6 +5,10 @@ require 'rake'
 
 module Guard
   class Rake < Guard
+    class << self
+      attr_accessor :rakefile_loaded
+    end
+
     def initialize(watchers=[], options={})
       super
       @options = {
@@ -16,8 +20,7 @@ module Guard
 
     def start
       UI.info "Starting guard-rake #{@task}"
-      ::Rake.application.init
-      ::Rake.application.load_rakefile
+      load_rakefile unless self.class.rakefile_loaded
       run_rake_task if @options[:run_on_start]
       true
     end
@@ -55,6 +58,12 @@ module Guard
       UI.debug "\n#{e.backtrace.join("\n")}"
 
       throw :task_has_failed
+    end
+
+    def load_rakefile
+      ::Rake.application.init
+      ::Rake.application.load_rakefile
+      self.class.rakefile_loaded = true      
     end
   end
 end
