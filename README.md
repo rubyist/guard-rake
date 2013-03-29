@@ -44,12 +44,39 @@ the watched files change.
 
 ### List of available options:
 
-``` ruby
+```ruby
 :task => 'doit'              # name of the task to be executed, required
 :run_on_all => false         # runs when the 'run_all' signal is received from Guard (enter is pressed), default: true
 :run_on_start => true        # runs when guard is started, default: true
 :task_args => []             # arguments to pass to Rake::Task#invoke, default: []
 ```
+
+### Rake task arguments
+By default, the changed file paths will be passed into the rake task. Example:
+
+```ruby
+task :doit, :paths do |t, args|
+  args.paths  # Will contain an array of changed paths
+end
+```
+
+You may also use this in conjunction with the :task_args options. Anything in :task_args will
+be passed in first, then the array of changed paths. Example:
+
+```ruby
+# Guardfile
+guard 'rake', :task => 'doit', :task_args => ['a', 'b'] do
+  watch(%r{^some_files/.+$})
+end
+
+# Rakefile
+task :doit, [:first, :second, :paths] do |t, args|
+  args.first  # "a"
+  args.second # "b"
+  args.paths  # ['changed1.rb', 'changed2.rb']
+end
+```
+
 
 ## Development
 
