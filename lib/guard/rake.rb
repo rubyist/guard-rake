@@ -13,7 +13,8 @@ module Guard
       super
       @options = {
         :run_on_start => true,
-        :run_on_all => true
+        :run_on_all => true,
+        :task_args => []
       }.update(options)
       @task = @options[:task]
     end
@@ -52,7 +53,7 @@ module Guard
     def run_rake_task
       UI.info "running #{@task}"
       ::Rake::Task.tasks.each { |t| t.reenable }
-      ::Rake::Task[@task].invoke
+      ::Rake::Task[@task].invoke(*@options[:task_args])
     rescue Exception => e
       UI.error "#{self.class.name} failed to run rake task <#{@task}>, exception was:\n\t#{e.class}: #{e.message}"
       UI.debug "\n#{e.backtrace.join("\n")}"
