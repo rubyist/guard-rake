@@ -65,11 +65,12 @@ module Guard
       UI.debug "\n#{e.backtrace.join("\n")}"
 
       Notifier.notify(
-        "#{e.class}: #{e.message}", :title => "fail to run rake task: #{@task}", :image => :failed)
+        " #{e.class}: #{e.message}", :title => "fail to run rake task: #{@task}", :image => :failed)
       throw :task_has_failed
     end
 
     def load_rakefile
+      ARGV.clear
       ::Rake.application.init
       ::Rake.application.load_rakefile
       self.class.rakefile_loaded = true      
