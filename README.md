@@ -10,7 +10,8 @@ before continuing.
 
 Install the gem:
 ```bash
-$ gem install guard-rake```
+$ gem install guard-rake
+```
 
 Add it to your `Gemfile`
 
