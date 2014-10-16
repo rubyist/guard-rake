@@ -45,7 +45,7 @@ module Guard
         run_rake_task(paths)
       end
     else
-      def run_on_changes(paths)
+      def run_on_modifications(paths)
         run_rake_task(paths)
       end
     end
@@ -56,7 +56,7 @@ module Guard
       ::Rake::Task[@task].invoke(*@options[:task_args], paths)
 
       Notifier.notify(
-        "watched files: #{paths}", 
+        "watched files: #{paths}",
         :title => "running rake task: #{@task}",
         :image => :success
       )
@@ -73,7 +73,7 @@ module Guard
       ARGV.clear
       ::Rake.application.init
       ::Rake.application.load_rakefile
-      self.class.rakefile_loaded = true      
+      self.class.rakefile_loaded = true
     end
   end
 end
