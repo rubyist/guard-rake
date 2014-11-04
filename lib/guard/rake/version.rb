@@ -1,5 +1,5 @@
 module Guard
   module RakeVersion
-    VERSION = "0.0.10"
+    VERSION = "1.0.0"
   end
 end

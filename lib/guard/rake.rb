@@ -1,15 +1,14 @@
 require 'guard'
-require 'guard/guard'
 require 'guard/version'
 require 'rake'
 
 module Guard
-  class Rake < Guard
+  class Rake < Plugin
     class << self
       attr_accessor :rakefile_loaded
     end
 
-    def initialize(watchers=[], options={})
+    def initialize(options={})
       super
       @options = {
         :run_on_start => true,
