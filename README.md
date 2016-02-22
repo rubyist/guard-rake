@@ -78,6 +78,19 @@ task :doit, [:first, :second, :paths] do |t, args|
 end
 ```
 
+## Rakefile reload
+
+The Rakefile is only loaded when Guard is starting up or reloading. If you require the Rakefile to be reloaded (e.g. you are developing a Rake task and you want to continuously test its invocation), you're probably after something like this:
+
+```ruby
+guard 'rake', :task => 'doit', :run_on_start => false do
+  watch('Rakefile') {
+    ::Rake::Task.clear
+    ::Rake.application.load_rakefile
+    'Rakefile'
+  }
+end
+```
 
 ## Development
 
