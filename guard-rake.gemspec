@@ -10,6 +10,7 @@ Gem::Specification.new do |s|
   s.homepage    = 'http://github.com/rubyist/guard-rake'
   s.summary     = %q{Guard for running rake tasks}
   s.description = %q{guard-rake automatically runs Rake tasks from your Rakefile}
+  s.license     = "MIT"
 
   s.add_dependency 'guard'
   s.add_dependency 'rake'
