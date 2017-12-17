@@ -51,7 +51,7 @@ module Guard
 
     def run_rake_task(paths=[])
       UI.info "running #{@task}"
-      ::Rake::Task.tasks.each { |t| t.reenable }
+      ::Rake::Task[@task].reenable
       ::Rake::Task[@task].invoke(*@options[:task_args], paths)
 
       Notifier.notify(
