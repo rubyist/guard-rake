@@ -78,6 +78,113 @@ task :doit, [:first, :second, :paths] do |t, args|
 end
 ```
 
+## Second usage
+
+This second usage will describe how to create a rake task that generates Guardfile from rake tasks.
+
+First, add this to your Gemfile:
+
+```ruby
+gem 'guard-rake'
+gem 'guard-shell'
+```
+
+You will need some tasks with file dependencies in your Rakefile. I'f you don't have those, try put this code in your Rakefile:
+
+```ruby
+files = Rake::FileList.new('*.md')
+desc "Create a book"
+task 'book' => files do
+  sh "cat #{files.join(" ")} > book.txt"
+end
+```
+
+Now you are ready to import our rake task, put  Inside your `Rakefile`:
+
+```ruby
+require "guard/rake/task"
+
+Guard::Rake::Task.new
+```
+
+You can see you have two new tasks:
+
+```
+$ rake -T
+rake book             # Create a book
+rake guard            # Create Guardfile from rake tasks
+```
+
+And the book task have these dependencies:
+
+```
+$ rake -P
+rake book
+    README.md
+rake guard
+```
+
+If you call the `guard` task it will create `Guardfile`:
+
+```
+$ rake guard
+$ cat Guardfile
+guard :shell do
+
+    watch(%r{^(README.md)$}) do |m|
+      system("rake book")
+    end
+
+end
+```
+
+You can also add the `Rakefile` dependency:
+
+```
+task :guard => ['Rakefile']
+```
+
+And using the `guard` task it will produce this `Guardfile`:
+
+```ruby
+guard :shell do
+
+    watch(%r{^(README.md)$}) do |m|
+      system("rake book")
+    end
+
+    watch(%r{^(Rakefile)$}) do |m|
+      system("rake guard")
+    end
+
+end
+```
+
+### Advanced usage
+
+If you want update your `Guardfile` with other content, it's best to create your own ERB template:
+
+```ruby
+Guard::Rake::Task.new do |t|
+  t.template=File.read('Guardfile.erb')
+end
+```
+
+And then create your `Guardfile.erb` as a template:
+
+```ruby
+guard :shell do
+  <% all_tasks.each do |t, files| %>
+    watch(%r{^(<%= files.join('|') %>)$}) do |m|
+      system("rake <%= t %>")
+    end
+  <% end %>
+
+  <%# Add your custom code here %>
+end
+
+<%# Or here %>
+```
 
 ## Development
 
@@ -110,4 +217,3 @@ IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
 CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
 TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-
