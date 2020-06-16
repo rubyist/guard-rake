@@ -13,6 +13,7 @@ Gem::Specification.new do |s|
   s.license     = "MIT"
 
   s.add_dependency 'guard'
+  s.add_dependency 'guard-shell'
   s.add_dependency 'rake'
 
   s.files         = `git ls-files`.split("\n")
@@ -20,4 +21,3 @@ Gem::Specification.new do |s|
   s.executables   = `git ls-files -- bin/*`.split("\n").map {|f| File.basename(f) }
   s.require_paths = ['lib']
 end
-
